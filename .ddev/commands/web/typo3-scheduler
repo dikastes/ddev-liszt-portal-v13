@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+
+# Find currently used PHP version path, see .ddev/config.yaml:php_version
+PHP=$(command -v "php$DDEV_PHP_VERSION" || echo "")
+if [ -z "$PHP" ]; then
+    echo "PHP $DDEV_PHP_VERSION binary not found"
+    exit 1
+fi
+
+FORCE=0
+
+for i in "$@"; do
+  case $i in
+    -f|--force)
+      FORCE=1
+      shift
+      ;;
+    -h|--help)
+      echo "Use -f or --force to run the scheduler even though xdebug is enabled"
+      ;;
+  esac
+done
+
+# Skip scheduler if xdebug is enabled
+if [ "$($PHP -m | grep xdebug)" ] && [ "$FORCE" = 0 ]; then
+    echo "XDebug is enabled, not running cron"
+    exit 0
+fi
+
+# Run the TYPO3 scheduler command and send output to file and stdout
+cd /var/www/html && IS_DDEV_PROJECT=true vendor/bin/typo3 scheduler:run -vv | tee -a var/log/scheduler.log

@@ -1,0 +1,34 @@
+# IDE
+/.idea
+/.nbproject
+/.vscode
+# Package Manager
+/.npm
+/node_modules
+/vendor
+# TYPO3
+/var/*
+/public/*
+!/public/.htaccess
+!/public/typo3conf
+/public/typo3conf/*
+/config/system/settings.php
+/.php-cs-fixer.cache
+# DDEV - ignore files created by "ddev get torenware/ddev-viteserve"
+/.ddev/addon-metadata/ddev-viteserve
+/.ddev/.allow-upgrade
+/.ddev/docker-compose.viteserve.yaml
+/.ddev/.env-frag
+/.ddev/web-build/Dockerfile.ddev-viteserve
+/.ddev/viteserve
+/.ddev/commands/web/vite-serve
+# DDEV - ignore files created by "ddev get ddev/ddev-cron"
+/.ddev/addon-metadata/ddev-cron
+/.ddev/web-build/Dockerfile.ddev-cron
+/.ddev/web-build/cron.conf
+/.ddev/web-build/time.cron.example
+
+# liszt Project ignore all extensions in the extensions folder, ToDo: check if Github Subtree is a better solution
+/packages/*
+
+#/.ddev/db-snaphsots/*
