@@ -1,0 +1,64 @@
+#! /usr/bin/env bash
+
+## Description: Initialize TYPO3 project
+## Usage: typo3-init
+## Example: ddev typo3-init
+
+set -eu -o pipefail
+
+status=0
+setupStatus=0
+
+# vite-serve requires a running DDEV project due to using "post_install_actions"
+ddev start
+
+ddev get -h 1> /dev/null || status=$?
+if [ "$status" -eq 0 ]; then
+    ddevVersionInfo=""
+
+    # Vite add-on: provides "ddev vite-serve {start|stop}}" command
+    addonOutput=$(ddev get torenware/ddev-viteserve 2>&1) || (echo "$addonOutput" && exit 1)
+
+    # CronJob add-on: run the TYPO3 scheduler command every 5 minutes, see .ddev/web-build/typo3.cron
+    cronAddonOutput=$(ddev get ddev/ddev-cron 2>&1) || (echo "$cronAddonOutput" && exit 1)
+
+    # DDEV requires a restart after a add-on was installed.
+    ddev restart
+else
+    ddevVersionInfo="Skipped add-on installation due to missing 'ddev get' subcommand.\nThis command is only available in DDEV v1.19.0 and above.\n"
+fi
+
+ddev composer install
+
+# Dynamically set the "server-type" option for the setup command
+# based on "DDEV_WEBSERVER_TYPE". DDEV does not support IIS!
+[[ $DDEV_WEBSERVER_TYPE = apache* ]] && serverType="apache" || serverType="other"
+
+ddev typo3 setup --server-type=$serverType --force -n || setupStatus=$?
+
+if [ "$setupStatus" -gt 0 ]; then
+    echo "Ooops, something went wrong while running the setup. Maybe TYPO3 is already set up."
+    echo "Proceed anyways? (y/n, default: n)"
+    read -r userInput
+
+    if [ "$userInput" != "y" ]; then
+        exit 0
+    fi
+fi
+
+# Prepare frontend
+ddev npm install
+ddev npm run build:production
+
+# Initialize data
+ddev typo3 extension:setup
+ddev composer dumpautoload
+
+echo "TYPO3 is ready at ${DDEV_PRIMARY_URL}"
+echo "      Username: $(ddev exec printenv TYPO3_SETUP_ADMIN_USERNAME)"
+echo "      Password: $(ddev exec printenv TYPO3_SETUP_ADMIN_PASSWORD)"
+
+echo -en "$ddevVersionInfo"
+
+# Open TYPO3 in the browser
+ddev launch /typo3
