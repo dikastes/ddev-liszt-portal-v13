@@ -31,4 +31,4 @@
 # liszt Project ignore all extensions in the extensions folder, ToDo: check if Github Subtree is a better solution
 /packages/*
 
-#/.ddev/db-snaphsots/*
+/.ddev/db-snaphsots/*
