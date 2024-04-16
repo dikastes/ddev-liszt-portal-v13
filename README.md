@@ -172,3 +172,15 @@ ddev typo3-scheduler # -f or --force to run it while xdebug is enabled
 ## License
 
 GPL-2.0 or later
+
+
+
+## Install new
+- clone repository
+- clone packages in /packages directory  /take care of the right branch (typo v13)
+- run typo3 init script or insert /config/system/settings.php for typo3 installation
+- restore database snapshot (ddev snapshot restore)
+- npm install ( if manually insert settings.php)
+- ddev restart
+- ddev get torenware/ddev-viteserve
+- ddev vite-serve start && ddev typo3 cache:flush
