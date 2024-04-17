@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "32b03279ef4b5a41839cc83c52bde772",
+    "content-hash": "ba9b0ec14b9bdaca505d20c273f2b044",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2658,6 +2658,76 @@
             "time": "2021-10-29T13:26:27+00:00"
         },
         {
+            "name": "quellenform/t3x-iconpack",
+            "version": "1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/quellenform/t3x-iconpack.git",
+                "reference": "99a1a608ac4edb893cc397fb39ca63202208b78f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/quellenform/t3x-iconpack/zipball/99a1a608ac4edb893cc397fb39ca63202208b78f",
+                "reference": "99a1a608ac4edb893cc397fb39ca63202208b78f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4.0",
+                "typo3/cms-core": ">=10.4.11 <12 || ~12.4.7 || ^13"
+            },
+            "replace": {
+                "typo3-ter/iconpack": "self.version"
+            },
+            "type": "typo3-cms-extension",
+            "extra": {
+                "typo3/cms": {
+                    "extension-key": "iconpack"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Quellenform\\Iconpack\\": "Classes"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Stephan Kellermayr",
+                    "email": "typo3@quellenform.at",
+                    "homepage": "https://www.quellenform.at/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Provides an iconpack-registry for custom iconpacks.",
+            "homepage": "https://extensions.typo3.org/extension/iconpack",
+            "keywords": [
+                "CKEditor",
+                "extension",
+                "iconfont",
+                "icons",
+                "typo3",
+                "webfont"
+            ],
+            "support": {
+                "issues": "https://github.com/quellenform/t3x-iconpack/issues",
+                "source": "https://github.com/quellenform/t3x-iconpack"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/quellenform",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/quellenform",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-04-03T14:46:28+00:00"
+        },
+        {
             "name": "ralouphie/getallheaders",
             "version": "3.0.3",
             "source": {
@@ -2703,11 +2773,11 @@
         },
         {
             "name": "slub/liszt-common",
-            "version": "dev-12-upgrade-to-typo3-v13",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "packages/liszt_common",
-                "reference": "8d36e858e615f461ab024f185bdf056965a1eed4"
+                "reference": "42e46cc060e476e21642b6eb35b773936c625953"
             },
             "require": {
                 "elasticsearch/elasticsearch": "^8",
@@ -2771,11 +2841,15 @@
         },
         {
             "name": "slub/liszt-web",
-            "version": "dev-8-upgrade-to-typo3-v13",
+            "version": "dev-9-install-and-test-extension-iconpack",
             "dist": {
                 "type": "path",
                 "url": "packages/liszt_web",
-                "reference": "df7f384ec563a0c9a0c388bfa3608f7a565feca8"
+                "reference": "2f33b7ee3d6b2381d27dd1fbed6cf1fd3e15a70e"
+            },
+            "require": {
+                "slub/liszt-common": "dev-main",
+                "typo3/cms-core": "^13.0"
             },
             "type": "typo3-cms-extension",
             "extra": {

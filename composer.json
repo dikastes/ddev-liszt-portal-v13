@@ -22,6 +22,7 @@
 	},
 	"require": {
 		"praetorius/vite-asset-collector": "^1.9",
+		"quellenform/t3x-iconpack": "^1.1",
 		"slub/liszt-common": "@dev",
 		"slub/liszt-web": "@dev",
 		"typo3/cms-adminpanel": "^13.0",
