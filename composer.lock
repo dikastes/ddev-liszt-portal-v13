@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba9b0ec14b9bdaca505d20c273f2b044",
+    "content-hash": "5dc1e96a49763ddf19e679b2617d54af",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -168,6 +168,72 @@
                 "source": "https://github.com/DASPRiD/Enum/tree/1.0.5"
             },
             "time": "2023-08-25T16:18:39+00:00"
+        },
+        {
+            "name": "dikastes/zotero-api",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "packages/zotero-api",
+                "reference": "a6c599567cf7ac654a720f57df9b3209d7322f45"
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.3",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1",
+                "phpunit/phpunit": "^9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Hedii\\ZoteroApi\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Hedii\\ZoteroApi\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "ci": [
+                    "@phpstan",
+                    "@test"
+                ],
+                "phpstan": [
+                    "vendor/bin/phpstan analyse src/ tests/"
+                ],
+                "test": [
+                    "vendor/bin/phpunit"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "hedii",
+                    "email": "hedi.chaibs@gmail.com",
+                    "homepage": "https://hedichaibi.com"
+                }
+            ],
+            "description": "A php wrapper for zotero web api.",
+            "homepage": "https://github.com/hedii/zotero-api",
+            "keywords": [
+                "hedii",
+                "php",
+                "zotero",
+                "zotero-api"
+            ],
+            "support": {
+                "issues": "https://github.com/hedii/zotero-api/issues",
+                "source": "https://github.com/hedii/zotero-api",
+                "email": "hedi.chaibs@gmail.com"
+            },
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "doctrine/annotations",
@@ -2772,8 +2838,73 @@
             "time": "2019-03-08T08:55:37+00:00"
         },
         {
+            "name": "slub/liszt-bibliography",
+            "version": "dev-16-upgrade-to-typo3-v13",
+            "dist": {
+                "type": "path",
+                "url": "packages/liszt_bibliography",
+                "reference": "259d66370f91590d939e49955ce39b9624e86822"
+            },
+            "require": {
+                "dikastes/zotero-api": "dev-main",
+                "illuminate/collections": "^11",
+                "slub/liszt-common": "dev-12-upgrade-to-typo3-v13",
+                "typo3/cms-core": "^13",
+                "typo3/cms-fluid-styled-content": "^13"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1",
+                "phpunit/phpunit": "^9",
+                "typo3/testing-framework": "^8"
+            },
+            "type": "typo3-cms-extension",
+            "extra": {
+                "typo3/cms": {
+                    "extension-key": "liszt_bibliography"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Slub\\LisztBibliography\\": "Classes/"
+                }
+            },
+            "scripts": {
+                "ci": [
+                    "@ci:install",
+                    "@ci:php",
+                    "@ci:tests"
+                ],
+                "ci:php": [
+                    "@ci:php:stan"
+                ],
+                "ci:php:stan": [
+                    "Build/Scripts/runTests.sh -s phpstan -b docker"
+                ],
+                "ci:tests": [
+                    "@ci:tests:unit",
+                    "@ci:tests:functional"
+                ],
+                "ci:tests:unit": [
+                    "Build/Scripts/runTests.sh -s unit -b docker"
+                ],
+                "ci:tests:functional": [
+                    "Build/Scripts/runTests.sh -s functional -b docker"
+                ],
+                "ci:install": [
+                    "Build/Scripts/runTests.sh -s composerInstall -b docker"
+                ]
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "Manages an elasticsearch index obtained from a zotero library and other data sources, displays a bibliography listing",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "slub/liszt-common",
-            "version": "dev-main",
+            "version": "dev-12-upgrade-to-typo3-v13",
             "dist": {
                 "type": "path",
                 "url": "packages/liszt_common",
@@ -2841,14 +2972,15 @@
         },
         {
             "name": "slub/liszt-web",
-            "version": "dev-9-install-and-test-extension-iconpack",
+            "version": "dev-8-upgrade-to-typo3-v13",
             "dist": {
                 "type": "path",
                 "url": "packages/liszt_web",
-                "reference": "2f33b7ee3d6b2381d27dd1fbed6cf1fd3e15a70e"
+                "reference": "bdf0e6b1f3a3610ff0c8bc11811dc5717a6a01d5"
             },
             "require": {
-                "slub/liszt-common": "dev-main",
+                "quellenform/t3x-iconpack": "^1.0",
+                "slub/liszt-common": "dev-12-upgrade-to-typo3-v13",
                 "typo3/cms-core": "^13.0"
             },
             "type": "typo3-cms-extension",
@@ -8587,8 +8719,10 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "alpha",
     "stability-flags": {
+        "dikastes/zotero-api": 20,
+        "slub/liszt-bibliography": 20,
         "slub/liszt-common": 20,
         "slub/liszt-web": 20,
         "typo3/coding-standards": 20

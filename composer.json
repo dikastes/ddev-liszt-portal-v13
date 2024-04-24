@@ -14,6 +14,7 @@
 		},
 		"sort-packages": true
 	},
+	"minimum-stability": "alpha",
 	"repositories": {
 		"local-packages": {
 			"type": "path",
@@ -21,8 +22,10 @@
 		}
 	},
 	"require": {
+		"dikastes/zotero-api": "@dev",
 		"praetorius/vite-asset-collector": "^1.9",
 		"quellenform/t3x-iconpack": "^1.1",
+		"slub/liszt-bibliography": "@dev",
 		"slub/liszt-common": "@dev",
 		"slub/liszt-web": "@dev",
 		"typo3/cms-adminpanel": "^13.0",
