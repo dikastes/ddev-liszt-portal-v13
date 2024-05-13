@@ -184,3 +184,7 @@ GPL-2.0 or later
 - ddev restart
 - ddev get torenware/ddev-viteserve
 - ddev vite-serve start && ddev typo3 cache:flush
+
+
+## MySQL Snapshot
+ddev snapshot --name mysnapshot
